@@ -1,12 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+typedef struct node node;
 struct node {
     int data;
     struct node *next;
 };
-
-typedef struct node node;
 
 node *makeNode(int val) {
     node *newNode = (node *)malloc(sizeof(node));
@@ -16,22 +15,32 @@ node *makeNode(int val) {
 }
 
 void duyet(node *head) {
-    node *temp = head;
-    while (temp != NULL) {
-        printf("%d ", temp->data);
-        head = temp->next;
-    }
-    printf("NULL");
-}
-
-int count (node *head){
-    node *dem = head;
-    while (head != NULL){
-        dem++;
+    while (head != NULL) {
+        printf("%d ", head->data);
         head = head->next;
     }
 }
 
-int main(){
+int count(node *head) {
+    int dem = 0;
+    while (head != NULL) {
+        dem++;
+        head = head->next;
+    }
+    return dem;
+}
+
+void pushFront(node **head, int val) {
+    node *newNode = makeNode(val);
+    newNode->next = *head;
+    *head = newNode;
+}
+
+int main (){
     node *head = NULL;
+    for (int i = 1; i <= 5; i++){
+        pushFront(&head, i);
+    }
+    duyet(head);
+    printf("\n%d", count(head));
 }
